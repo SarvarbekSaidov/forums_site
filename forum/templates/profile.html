@@ -1,0 +1,28 @@
+<!-- profile.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ profile.user.username }}'s Profile</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="bio">Bio:</label>
+            <textarea class="form-control" id="bio" name="bio" rows="4">{{ profile.bio }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+    <h2>Your Comments</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.content }} on {{ comment.topic.title }}</li>
+        {% empty %}
+            <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
